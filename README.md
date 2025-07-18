@@ -23,6 +23,24 @@ A comprehensive calculator for United International University students to:
 🔄 **One-click Refresh** to start over  
 📱 **Mobile-friendly** responsive design  
 
+## UIU Grading System
+
+The calculator uses UIU's official grading scale:
+
+| Letter Grade | Grade Point | Marks (%)    | Assessment    |
+|--------------|-------------|--------------|---------------|
+| A            | 4.00        | 90 – 100     | Outstanding   |
+| A-           | 3.67        | 86 – 89      | Excellent     |
+| B+           | 3.33        | 82 – 85      | Very Good     |
+| B            | 3.00        | 78 – 81      | Good          |
+| B-           | 2.67        | 74 – 77      | Above Average |
+| C+           | 2.33        | 70 – 73      | Average       |
+| C            | 2.00        | 66 – 69      | Below Average |
+| C-           | 1.67        | 62 – 65      | Poor          |
+| D+           | 1.33        | 58 – 61      | Very poor     |
+| D            | 1.00        | 55 – 57      | Pass          |
+| F            | 0.00        | 0 – 54       | Fail          |
+
 ## How to Use
 
 1. **CGPA Calculator**:
