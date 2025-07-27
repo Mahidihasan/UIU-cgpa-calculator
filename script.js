@@ -84,60 +84,66 @@ function createCourseElement(index) {
 
 // Handle CGPA prediction
 function calculateCGPA() {
-    // Get current academic standing
     let completed = parseFloat(document.getElementById("completedCredits").value);
     let cgpa = parseFloat(document.getElementById("currentCGPA").value);
+
     if (isNaN(completed)) completed = 0;
     if (isNaN(cgpa)) cgpa = 0;
 
-    const courseItems = document.querySelectorAll("#courses .course-item");
-    let totalNewCredits = 0;
-    let totalNewPoints = 0;
-    let retakeCredits = 0;
-    let semesterCredits = 0;
-    let semesterPoints = 0;
+    const cappedCGPA = Math.min(cgpa, 4);
 
-    // Process each course
+    const courseItems = document.querySelectorAll("#courses .course-item");
+
+    let totalNewCredits = 0;      
+    let totalNewPoints = 0;       
+    let semesterCredits = 0;        
+    let semesterPoints = 0;         
+    let retakeCredits = 0;          
+
     courseItems.forEach(item => {
         const selects = item.querySelectorAll("select");
         const credit = parseFloat(selects[0].value);
         const grade = parseFloat(selects[1].value);
         const isRetake = item.querySelector('input[type="checkbox"]').checked;
         const prevGradeSelect = item.querySelector(".prev-grade-container select");
-        const prevGrade = isRetake && prevGradeSelect ? parseFloat(prevGradeSelect.value) : 0;
+        const prevGrade = prevGradeSelect ? parseFloat(prevGradeSelect.value) : NaN;
 
         if (!isNaN(credit) && !isNaN(grade)) {
-            if (!isRetake) {
-                // Regular course - counts for both CGPA and semester GPA
-                totalNewCredits += credit;
-                totalNewPoints += grade * credit;
-                semesterCredits += credit;
-                semesterPoints += grade * credit;
-            } else {
-                // Retake - only affects CGPA by grade difference
-                if (!isNaN(prevGrade) && !isNaN(grade)) {
+            if (isRetake) {
+                if (!isNaN(prevGrade)) {
                     totalNewPoints += (grade - prevGrade) * credit;
                     retakeCredits += credit;
+                } else {
+                    console.warn("Retake marked but previous grade missing, skipping retake.");
                 }
+            } else {
+                totalNewCredits += credit;
+                totalNewPoints += grade * credit;
+
+                semesterCredits += credit;
+                semesterPoints += grade * credit;
             }
+        } else {
+            console.warn("Missing or invalid credit/grade for a course, skipping.");
         }
     });
 
-    // Calculate Predicted CGPA
-    const totalCredits = completed + totalNewCredits; // Retakes don't add new credits
+    // Total credits for CGPA calculation (retakes don't add new credits)
+    const totalCredits = completed + totalNewCredits;
+
     let predicted = "0.00";
     if (totalCredits > 0) {
-        const totalPoints = completed * cgpa + totalNewPoints;
-        predicted = (totalPoints / totalCredits).toFixed(2);
+        const previousPoints = completed * cappedCGPA;
+        const newTotalPoints = previousPoints + totalNewPoints;
+        predicted = (newTotalPoints / totalCredits).toFixed(2);
+        predicted = Math.min(predicted, 4).toFixed(2);
     }
 
-    // Calculate Semester GPA (only new courses, no retakes)
     let semesterGPA = "0.00";
     if (semesterCredits > 0) {
         semesterGPA = (semesterPoints / semesterCredits).toFixed(2);
     }
-
-    // Display results
+    //UI
     const detailedResult = document.getElementById("detailedResult");
     detailedResult.innerHTML = `
         <p style="font-size:1.2rem;"><strong>Result</strong></p>
@@ -146,14 +152,15 @@ function calculateCGPA() {
         <div class="installment-item">Trimester Credits: ${semesterCredits}</div>
         ${retakeCredits > 0 ? `<div class="installment-item">Retake Credits: ${retakeCredits}</div>` : ''}
         <div class="installment-item"><strong>Trimester GPA:</strong> ${semesterGPA}</div>
-        ${retakeCredits > 0 ? `<div class="installment-item note">Note: Retakes affect CGPA but not semester GPA</div>` : ''}
+        ${retakeCredits > 0 ? `<div class="installment-item note">Note: Retakes replace old grades in CGPA but don’t add new credits or count in trimester GPA</div>` : ''}
     `;
 
-    // Show modal with results
+    // Show modal
     const modal = document.getElementById("resultModal");
     modal.classList.remove("hidden");
     modal.style.display = "block";
 }
+
 
 // Handle Installment calculation
 function calculateInstallments() {
@@ -237,7 +244,7 @@ function toggleCalculator() {
     } else {
         cgpaSection.classList.remove("hidden");
         tuitionSection.classList.add("hidden");
-        headerTitle.textContent = "CGPA Calculator";
+        headerTitle.textContent = "UIU CGPA Calculator";
     }
 }
 

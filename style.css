@@ -326,9 +326,6 @@ select.input-field {
   background-size: 14px;
   padding-right: 30px;
 }
-/* Dark mode override (keep brand colors) */
-/* Modern minimal dark mode orange theme */
-
 body {
   background-color: #121212;
   color: #e0e0e0;
