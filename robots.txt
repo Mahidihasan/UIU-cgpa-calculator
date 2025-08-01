@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://uiu-cgpacalculator.vercel.app/sitemap.xml
