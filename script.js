@@ -113,6 +113,9 @@ function calculateCGPA() {
                 if (!isNaN(prevGrade)) {
                     totalNewPoints += (grade - prevGrade) * credit;
                     retakeCredits += credit;
+//re-edit
+semesterCredits+=credit;
+semesterCredits+=grade*credit;
                 } else {
                     console.warn("Retake marked but previous grade missing, skipping retake.");
                 }
