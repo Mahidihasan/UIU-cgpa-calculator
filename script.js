@@ -83,7 +83,7 @@ function createCourseElement(index) {
 }
 
 // Handle CGPA prediction
-function calculateCGPA() {
+/*function calculateCGPA() {
     let completed = parseFloat(document.getElementById("completedCredits").value);
     let cgpa = parseFloat(document.getElementById("currentCGPA").value);
 
@@ -113,11 +113,8 @@ function calculateCGPA() {
                 if (!isNaN(prevGrade)) {
                     totalNewPoints += (grade - prevGrade) * credit;
                     retakeCredits += credit;
-//re-edit
-semesterCredits+=credit;
-semesterCredits+=grade*credit;
                 } else {
-                    console.warn("Retake marked but previous grade missing, skipping retake.");
+                   // console.warn("Retake marked but previous grade missing, skipping retake.");
                 }
             } else {
                 totalNewCredits += credit;
@@ -159,6 +156,84 @@ semesterCredits+=grade*credit;
     `;
 
     // Show modal
+    const modal = document.getElementById("resultModal");
+    modal.classList.remove("hidden");
+    modal.style.display = "block";
+}*/
+function calculateCGPA() {
+    let completed = parseFloat(document.getElementById("completedCredits").value);
+    let cgpa = parseFloat(document.getElementById("currentCGPA").value);
+
+    if (isNaN(completed)) completed = 0;
+    if (isNaN(cgpa)) cgpa = 0;
+
+    const cappedCGPA = Math.min(cgpa, 4);
+
+    const courseItems = document.querySelectorAll("#courses .course-item");
+
+    let totalNewCredits = 0;      
+    let totalNewPoints = 0;       
+    let semesterCredits = 0;        
+    let semesterPoints = 0;         
+    let retakeCredits = 0;          
+    let retakePoints = 0;
+
+    courseItems.forEach(item => {
+        const selects = item.querySelectorAll("select");
+        const credit = parseFloat(selects[0].value);
+        const grade = parseFloat(selects[1].value);
+        const isRetake = item.querySelector('input[type="checkbox"]').checked;
+        const prevGradeSelect = item.querySelector(".prev-grade-container select");
+        const prevGrade = prevGradeSelect ? parseFloat(prevGradeSelect.value) : NaN;
+
+        if (!isNaN(credit) && !isNaN(grade)) {
+            if (isRetake) {
+                if (!isNaN(prevGrade)) {
+                    totalNewPoints += (grade - prevGrade) * credit;
+                    retakeCredits += credit;
+                    retakePoints += grade * credit;
+                }
+            } else {
+                totalNewCredits += credit;
+                totalNewPoints += grade * credit;
+            }
+            // All courses (including retakes) count for semester GPA
+            semesterCredits += credit;
+            semesterPoints += grade * credit;
+        } else {
+            console.warn("Missing or invalid credit/grade for a course, skipping.");
+        }
+    });
+
+    // Calculate Semester GPA (includes all courses this semester)
+    let semesterGPA = "0.00";
+    if (semesterCredits > 0) {
+        semesterGPA = (semesterPoints / semesterCredits).toFixed(2);
+    }
+
+    // Calculate Predicted CGPA
+    let predicted = "0.00";
+    const totalCreditsForCGPA = completed + totalNewCredits;
+    if (totalCreditsForCGPA > 0) {
+        const previousPoints = completed * cappedCGPA;
+        const newTotalPoints = previousPoints + totalNewPoints;
+        predicted = (newTotalPoints / totalCreditsForCGPA).toFixed(2);
+        predicted = Math.min(predicted, 4).toFixed(2);
+    }
+
+    // UI Display (unchanged from original)
+    const detailedResult = document.getElementById("detailedResult");
+    detailedResult.innerHTML = `
+        <p style="font-size:1.2rem;"><strong>Result</strong></p>
+        <div class="installment-item"><strong>Predicted CGPA:</strong> <span style="font-size:1.4rem;">${predicted}</span></div>
+        <div class="installment-item">Total Completed Credits: ${completed + totalNewCredits}</div>
+        <div class="installment-item">Trimester Credits: ${semesterCredits}</div>
+        ${retakeCredits > 0 ? `<div class="installment-item">Retake Credits: ${retakeCredits}</div>` : ''}
+        <div class="installment-item"><strong>Trimester GPA:</strong> ${semesterGPA}</div>
+        ${retakeCredits > 0 ? `<div class="installment-item note">Note: Retakes replace old grades in CGPA but don't add new credits</div>` : ''}
+    `;
+
+    // Show modal (unchanged from original)
     const modal = document.getElementById("resultModal");
     modal.classList.remove("hidden");
     modal.style.display = "block";
