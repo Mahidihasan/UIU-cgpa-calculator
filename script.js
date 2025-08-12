@@ -59,11 +59,15 @@ function createCourseElement(index) {
     retakeWrapper.appendChild(retakeCheckbox);
     retakeWrapper.appendChild(label);
 
-    const prevGradeContainer = document.createElement("div");
+    /*const prevGradeContainer = document.createElement("div");
     prevGradeContainer.className = "prev-grade-container";
     const prevGradeSelect = document.createElement("select");
     prevGradeSelect.className = "input-field";
     prevGradeSelect.innerHTML = gradeSelect.innerHTML;
+    prevGradeContainer.appendChild(prevGradeSelect);*/
+    const prevGradeLabel = document.createElement("label");
+    prevGradeLabel.textContent = "Previous Grade:";
+    prevGradeContainer.appendChild(prevGradeLabel);
     prevGradeContainer.appendChild(prevGradeSelect);
 
     retakeCheckbox.addEventListener("change", () => {
@@ -361,3 +365,4 @@ window.onload = () => {
     addCourse();
     document.getElementById("showTuition").checked = false;
 };
+
