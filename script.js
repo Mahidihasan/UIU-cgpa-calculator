@@ -16,7 +16,7 @@ function createCourseElement(index) {
     const creditSelect = document.createElement("select");
     creditSelect.className = "input-field";
     creditSelect.innerHTML = `
-        <option value="">Credit</option>
+        <option value="" disabled selected>Credit</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -25,7 +25,7 @@ function createCourseElement(index) {
     const gradeSelect = document.createElement("select");
     gradeSelect.className = "input-field";
     gradeSelect.innerHTML = `
-        <option value="">Grade</option>
+        <option value="" disabled selected>Grade</option>
         <option value="4">A</option>
         <option value="3.67">A-</option>
         <option value="3.33">B+</option>
@@ -48,7 +48,7 @@ function createCourseElement(index) {
         updateCourseNumbers();
     };
 
-    const retakeWrapper = document.createElement("div");
+    /*const retakeWrapper = document.createElement("div");
     retakeWrapper.className = "checkbox-container";
     const retakeCheckbox = document.createElement("input");
     retakeCheckbox.type = "checkbox";
@@ -66,6 +66,50 @@ function createCourseElement(index) {
     prevGradeSelect.innerHTML = gradeSelect.innerHTML;
     prevGradeContainer.appendChild(prevGradeSelect);
 
+
+    retakeCheckbox.addEventListener("change", () => {
+        prevGradeContainer.style.display = retakeCheckbox.checked ? "block" : "none";
+    });*/
+    const retakeWrapper = document.createElement("div");
+    retakeWrapper.className = "retake-container";
+
+    const retakeCheckbox = document.createElement("input");
+    retakeCheckbox.type = "checkbox";
+    retakeCheckbox.id = `retake-${index}`;
+
+    const retakeLabel = document.createElement("label");
+    retakeLabel.htmlFor = retakeCheckbox.id;
+    retakeLabel.textContent = "Retake";
+
+    retakeWrapper.appendChild(retakeCheckbox);
+    retakeWrapper.appendChild(retakeLabel);
+
+    // previous grade container
+    const prevGradeContainer = document.createElement("div");
+    prevGradeContainer.className = "prev-grade-container";
+    prevGradeContainer.id = `prevGrade-${index}`;
+    prevGradeContainer.style.display = "none";
+
+    const prevGradeSelect = document.createElement("select");
+    prevGradeSelect.className = "input-field";
+    prevGradeSelect.innerHTML = `
+    <option value="" disabled selected>Previous Grade</option>
+        <option value="4">A</option>
+        <option value="3.67">A-</option>
+        <option value="3.33">B+</option>
+        <option value="3">B</option>
+        <option value="2.67">B-</option>
+        <option value="2.33">C+</option>
+        <option value="2">C</option>
+        <option value="1.67">C-</option>
+        <option value="1.33">D+</option>
+        <option value="1">D</option>
+        <option value="0">F</option>
+`;
+
+    prevGradeContainer.appendChild(prevGradeSelect);
+
+    // toggle show/hide
     retakeCheckbox.addEventListener("change", () => {
         prevGradeContainer.style.display = retakeCheckbox.checked ? "block" : "none";
     });
@@ -171,11 +215,11 @@ function calculateCGPA() {
 
     const courseItems = document.querySelectorAll("#courses .course-item");
 
-    let totalNewCredits = 0;      
-    let totalNewPoints = 0;       
-    let semesterCredits = 0;        
-    let semesterPoints = 0;         
-    let retakeCredits = 0;          
+    let totalNewCredits = 0;
+    let totalNewPoints = 0;
+    let semesterCredits = 0;
+    let semesterPoints = 0;
+    let retakeCredits = 0;
     let retakePoints = 0;
 
     courseItems.forEach(item => {
@@ -255,7 +299,7 @@ function calculateInstallments() {
     const trimester_free = 6500;
     const regular = tuitionCredits - retakeCredits;
     const discounted = regular * perCredit * (1 - waiver / 100);
-    const retake = retakeCredits * (perCredit/2);
+    const retake = retakeCredits * (perCredit / 2);
     const total = discounted + retake + trimester_free;
 
     // Clear previous result
@@ -269,12 +313,12 @@ function calculateInstallments() {
         `;
     }
     else if (Math.abs(total - trimester_free) < 1) {
-    detailedResult.innerHTML = `
+        detailedResult.innerHTML = `
         <p style="font-size:1.2rem;"><strong>Installments</strong></p>
         <div class="installment-note">You have a 100% scholarship. Only the semester fee applies.</div>
         <div class="installment-total"><strong>Total payable:</strong> ৳${total.toFixed(2)}</div>
     `;
-}    
+    }
     else {
         const i1 = total * 0.4;
         const i2 = total * 0.3;

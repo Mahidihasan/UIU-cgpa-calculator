@@ -3,7 +3,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f0f8ff;
+  background-color: #121212;
+  color: #e0e0e0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,9 +15,9 @@ body {
 .calculator {
   width: 100%;
   max-width: 450px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  background: #1a1a1a;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
   overflow: hidden;
   margin: 20px;
 }
@@ -26,6 +27,7 @@ body {
   background: #FFA500;
   padding: 18px;
   text-align: center;
+  border-bottom: 2px solid #ffb733;
   position: relative;
 }
 
@@ -40,10 +42,10 @@ body {
 }
 
 .header h1 {
-  color: white;
-  margin: 0;
-  font-size: 1.5rem;
+  color: #fff;
   font-weight: 600;
+  font-size: 1.6rem;
+  margin: 0;
 }
 
 /* Content Area */
@@ -61,25 +63,30 @@ body {
   width: 100%;
   padding: 12px 16px;
   margin: 8px 0;
-  border: 1px solid #d1d5db;
+  border: 1px solid #444;
   border-radius: 8px;
   font-size: 0.95rem;
-  color:#fff;
-  transition: all 0.3s ease;
+  color: #ffffff;
+  background-color: #2b2b2b;
   box-sizing: border-box;
-  background-color: #ffffff;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .input-field:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  border-color: #FFA500;
+  box-shadow: 0 0 0 2px rgba(255, 165, 0, 0.4);
+}
+
+.input-field::placeholder {
+  color: #aaaaaa;
 }
 
 /* Course Items */
 .course-item {
-  background: #f8fafc;
-  border-radius: 8px;
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 10px;
   padding: 12px;
   margin-bottom: 12px;
   position: relative;
@@ -99,24 +106,25 @@ body {
 
 .btn-primary {
   background: #FFA500;
-  color: white;
+  color: #1a1a1a;
+  font-weight: 700;
 }
 
 .btn-primary:hover {
-  background: #FF8C00;
+  background: #ff8c00;
 }
 
 .btn-secondary {
-  background: #e2e8f0;
-  color: #334155;
+  background: #333;
+  color: #e0e0e0;
 }
 
 .btn-secondary:hover {
-  background: #cbd5e1;
+  background: #444;
 }
 
 .btn-danger {
-  background: #ef4444;
+  background: #b91c1c;
   color: white;
   padding: 6px 12px;
   font-size: 0.8rem;
@@ -124,91 +132,56 @@ body {
 }
 
 .btn-danger:hover {
-  background: #dc2626;
+  background: #991b1b;
 }
+
+.btn-refresh,
+.btn-back {
+  color: #e0e0e0;
+  background: none;
+}
+
+.btn-refresh:hover,
+.btn-back:hover {
+  color: #FFA500;
+}
+
 .btn-refresh {
   position: absolute;
   bottom: 32.5px;
   left: 350px;
   padding: 4px 8px;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   width: auto;
   height: 20px;
-  background: none;
-  color:auto;
   border-radius: 6px;
 }
 
-.btn-refresh:hover {
-  background: none;
-}
-/* Result Styles */
-.result {
-  text-align: center;
-  margin: 16px 0;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #39FF14;
-}
-
-.cgpa-value {
-  color: #39FF14;
-  font-weight: 600;
-}
-
-/* Back Button */
 .btn-back {
   width: auto;
   bottom: 60px;
   padding: 4px 8px;
   margin-top: 6px;
-  background: none;
-  color: #334155;
-  font-size: 0.8rem;
+  font-size: 1.0rem;
   gap: 4px;
-}
-
-.btn-back:hover {
-  background: none;
 }
 
 .btn-back-arrow {
   font-size: 1.1rem;
 }
 
+/* Result Styles */
+.result,
+.cgpa-value,
 .success {
-  color: #22c55e;
+  color: #39FF14;
 }
 
 .error {
   color: #ef4444;
 }
 
-/* Custom Select Arrow */
-select.input-field {
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  background-size: 14px;
-  padding-right: 30px;
-}
-
-/* Checkbox Styling */
-.checkbox-container {
-  display: flex;
-  align-items: center;
-  margin: 8px 0;
-}
-
-.checkbox-container input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  margin-right: 8px;
-  accent-color: #FFA500;
-}
-
-/* Responsive Grid for Courses */
+/* Course Grid */
 .course-grid {
   display: grid;
   grid-template-columns: 1.2fr 1.1fr 1.1fr auto;
@@ -231,38 +204,63 @@ select.input-field {
 
 /* Previous Grade Field */
 .prev-grade-container {
-  grid-column: 1 / -1;
-  margin-top: 8px;
-  display: none;
+  grid-column: 3 / 4;
+  margin-top: 0;
 }
 
-/* Installments Styling */
+.prev-grade-container .input-field {
+  font-size: 1.1rem;
+  padding: 8px 10px;
+  width: 95%;
+}
+
+/* Checkbox Styles */
+.checkbox-container,
+.retake-container {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.checkbox-container input[type="checkbox"],
+.retake-container input[type="checkbox"] {
+  accent-color: #FFA500;
+  size: 1.3rem;
+  margin-right: 8px;
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.retake-container input[type="checkbox"]:checked {
+  color: #FFA500;
+}
+
+/* Installments */
 .installment-item {
+  border-bottom: 1px dashed #333;
   margin: 4px 0;
   padding: 6px 0;
-  border-bottom: 1px dashed #e2e8f0;
 }
 
 .installment-total {
+  /*border-top: 1px solid #333;*/
   font-weight: 600;
   margin-top: 8px;
   padding-top: 8px;
-  border-top: 1px solid #d1d5db;
 }
 
-/* Toggle Sections */
+/* Toggle & Hidden */
 .section-toggle {
   cursor: pointer;
   user-select: none;
   margin-bottom: 16px;
 }
 
-/* Hidden Section */
 .hidden {
   display: none;
 }
 
-/* Modal Styles */
+/* Modal */
 .modal {
   display: none;
   position: fixed;
@@ -276,13 +274,13 @@ select.input-field {
 }
 
 .modal-content {
-  background-color: #fefefe;
+  background-color: #1e1e1e;
   margin: 10% auto;
   padding: 20px;
   border-radius: 12px;
   width: 90%;
   max-width: 400px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
   position: relative;
 }
 
@@ -293,22 +291,49 @@ select.input-field {
   font-size: 24px;
   font-weight: bold;
   cursor: pointer;
-  color:#fff;
+  color: #999;
 }
 
 .close-modal:hover {
-  color: #000;
+  color: #fff;
 }
 
-/* Prevent mobile layout changes */
-@media (max-width: 480px) {
-  .course-grid {
-    grid-template-columns: 1.2fr 1.1fr 1.1fr auto !important;
-    gap: 8px !important;
-  }
+/* Select styling */
+select.input-field {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #2b2b2b;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' stroke='currentColor' fill='none' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 14px;
+  padding-right: 30px;
+  color: #ffffff;
+}
 
+/* Responsive Mobile Adjustments */
+@media (max-width: 480px) {
   .calculator {
     margin: 10px;
+  }
+
+  .course-grid {
+    grid-template-columns: 1.2fr 1fr 1fr auto;
+    gap: 6px;
+  }
+
+  .course-grid .input-field {
+    font-size: 0.85rem;
+    padding: 8px 10px;
+  }
+
+  .course-grid button.delete-btn {
+    font-size: 1.1rem;
+    padding: 0;
+  }
+
+  .prev-grade-container {
+    grid-column: 3 / 4;
   }
 
   .btn-refresh {
@@ -317,158 +342,22 @@ select.input-field {
   }
 }
 
-select.input-field {
-  -webkit-appearance: none;
-  appearance: none;
-  background-image: url("data:image/svg+xml,...");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  background-size: 14px;
-  padding-right: 30px;
-}
-body {
-  background-color: #121212;
-  color: #e0e0e0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* Card container */
-.calculator {
-  background: #1a1a1a;
-  border-radius: 14px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-}
-
-/* Keep brand orange header */
-.header {
-  background: #FFA500;
-  padding: 18px;
-  text-align: center;
-  border-bottom: 2px solid #ffb733;
-}
-
-.header h1 {
-  color: #fff;
-  font-weight: 600;
-  font-size: 1.6rem;
-}
-
-/* Input fields: clean, subtle orange border & glow */
-.input-field {
-  background-color: #2b2b2b;
-  border: 1px solid #444;
+/* Tuition Fee Calculator row */
+#cgpaSection .section-toggle {
+  display: flex;
+  align-items: center;
+  font-size: 1.05rem;
+  font-weight: 450;
+  cursor: pointer;
   color: #ffffff;
-  border-radius: 8px;
-  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.input-field:focus {
-  border-color: #FFA500;
-  box-shadow: 0 0 0 2px rgba(255, 165, 0, 0.4);
-}
-
-/* Placeholder lighter */
-.input-field::placeholder {
-  color: #aaaaaa;
-}
-
-/* Course items: subtle border, rounded */
-.course-item {
-  background: #222;
-  border: 1px solid #333;
-  border-radius: 10px;
-}
-
-/* Buttons: softer, rounded, clean hover */
-.btn {
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-.btn-primary {
-  background: #FFA500;
-  color: #1a1a1a;
-}
-
-.btn-primary:hover {
-  background: #ff8c00;
-}
-
-.btn-secondary {
-  background: #333;
-  color: #e0e0e0;
-}
-
-.btn-secondary:hover {
-  background: #444;
-}
-
-.btn-danger {
-  background: #b91c1c;
-  color: white;
-}
-
-.btn-danger:hover {
-  background: #991b1b;
-}
-
-.btn-refresh, .btn-back {
-  color: #e0e0e0;
-  background: none;
-}
-
-.btn-refresh:hover, .btn-back:hover {
-  color: #FFA500;
-}
-
-/* Result text: keep neon green accent */
-.result,
-.cgpa-value,
-.success {
-  color: #39FF14;
-}
-
-/* Error red */
-.error {
-  color: #ef4444;
-}
-
-/* Installment & modal refinements */
-.installment-item {
-  border-bottom: 1px dashed #333;
-}
-
-.installment-total {
-  border-top: 1px solid #333;
-}
-
-.modal-content {
-  background-color: #1e1e1e;
-  border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-}
-
-.close-modal {
-  color: #999;
-}
-
-.close-modal:hover {
-  color: #fff;
-}
-
-/* Checkbox orange accent */
-.checkbox-container input[type="checkbox"] {
+/* Checkbox size */
+#cgpaSection .section-toggle input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
   accent-color: #FFA500;
-}
-
-/* Keep select arrow visible & modern */
-select.input-field {
-  background-color: #2b2b2b;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' stroke='currentColor' fill='none' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  background-size: 14px;
-  padding-right: 30px;
-  color: #ffffff;
+  cursor: pointer;
+  transform: scale(1.2);
 }

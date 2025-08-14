@@ -5,20 +5,40 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UIU CGPA Calculator</title>
-  <meta name="description" content="A free online CGPA calculator built for UIU students. Calculate your predicted CGPA and trimester GPA, including retakes, following the official UIU grading system.">
+  <meta name="description"
+    content="A free online CGPA calculator built for UIU students. Calculate your predicted CGPA and trimester GPA, including retakes, following the official UIU grading system.">
   <meta property="og:title" content="UIU CGPA Calculator – Predict Your CGPA & GPA">
-  <meta property="og:description" content="Calculate your predicted CGPA and semester GPA easily, including retakes, using the official UIU grading system.">
+  <meta property="og:description"
+    content="Calculate your predicted CGPA and semester GPA easily, including retakes, using the official UIU grading system.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://github.com/Mahidihasan/UIU-cgpa-calculator">
   <meta name="twitter:title" content="UIU CGPA Calculator – Predict Your CGPA & GPA">
-  <meta name="twitter:description" content="A student-friendly tool to calculate your UIU CGPA and trimester GPA, including retake impact.">
- 
+  <meta name="twitter:description"
+    content="A student-friendly tool to calculate your UIU CGPA and trimester GPA, including retake impact.">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UIU CGPA Calculator</title>
   <link rel="stylesheet" href="style.css">
+  <!-- Favicon for modern browsers -->
   <link rel="icon" type="image/png" sizes="32x32" href="assets/logo.png">
-  <link rel="apple-touch-icon" href="assets/logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/logo.png">
+
+  <!-- Classic ICO for older browsers -->
+  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+
+  <!-- Apple touch icon for iOS devices -->
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/logo.png">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
 
 </head>
 
@@ -56,7 +76,6 @@
           <label for="showTuition">Tuition Fee Calculator</label>
         </div>
       </div>
-
       <!-- Tuition Calculator -->
       <div id="tuitionSection" class="hidden">
         <input type="number" class="input-field" id="tuitionCredits" placeholder="Total credits this trimester">
