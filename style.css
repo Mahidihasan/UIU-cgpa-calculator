@@ -361,3 +361,24 @@ select.input-field {
   cursor: pointer;
   transform: scale(1.2);
 }
+/* Mobile adjustments for Android / small screens */
+@media (max-width: 480px) {
+  /* Course grid tweaks */
+  .course-grid button.delete-btn {
+    font-size: 1.3rem;   /* slightly bigger than before */
+    padding: 2px 4px;    /* better touch target */
+  }
+
+  /* Tuition Fee Calculator checkbox */
+  #cgpaSection .section-toggle input[type="checkbox"] {
+    width: 18px;         /* slightly smaller than before */
+    height: 18px;
+    transform: scale(1); /* reset scaling for better look */
+    margin-right: 8px;
+  }
+
+  /* Checkbox label font */
+  #cgpaSection .section-toggle label {
+    font-size: 1rem;    /* readable, not too big */
+  }
+}
