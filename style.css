@@ -88,7 +88,7 @@ body {
   border: 1px solid #333;
   border-radius: 10px;
   padding: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   position: relative;
 }
 
@@ -237,7 +237,7 @@ body {
 
 /* Installments */
 .installment-item {
-  border-bottom: 1px dashed #333;
+  border-bottom: 1px dashed #555;
   margin: 4px 0;
   padding: 6px 0;
 }
@@ -382,3 +382,5 @@ select.input-field {
     font-size: 1rem;    /* readable, not too big */
   }
 }
+
+
